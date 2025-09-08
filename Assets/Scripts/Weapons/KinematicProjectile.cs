@@ -36,9 +36,9 @@ public class KinematicProjectile : MonoBehaviour
 
             if (Hit.attachedRigidbody != null) {
                 if (Hit.attachedRigidbody.TryGetComponent<Hittable>(out Hittable)) {
-                    Hittable.Hit(Damage, Body.velocity.normalized /*Hit.transform.position - transform.position*/, Knockback, HitType.Bullet);
+                    Hittable.Hit(Damage, Body.linearVelocity.normalized /*Hit.transform.position - transform.position*/, Knockback, HitType.Bullet);
                     penetration -= Hittable.EntryPenetration(transform.position, HitType.Bullet);
-                    Body.velocity -= Body.velocity.normalized * penetrationSpeedLoss * Hittable.EntryPenetration(transform.position, HitType.Bullet);
+                    Body.linearVelocity -= Body.linearVelocity.normalized * penetrationSpeedLoss * Hittable.EntryPenetration(transform.position, HitType.Bullet);
                 }
             }
 
@@ -50,8 +50,8 @@ public class KinematicProjectile : MonoBehaviour
 
         if (hit.attachedRigidbody != null) {
             if (hit.attachedRigidbody.TryGetComponent<Hittable>(out hittable)) {
-                penetration -= Body.velocity.magnitude * Time.fixedDeltaTime * hittable.ContinuousPenetration(transform.position, HitType.Bullet);
-                Body.velocity -= Body.velocity.normalized * penetrationSpeedLoss * Body.velocity.magnitude * Time.fixedDeltaTime * hittable.ContinuousPenetration(transform.position, HitType.Bullet);
+                penetration -= Body.linearVelocity.magnitude * Time.fixedDeltaTime * hittable.ContinuousPenetration(transform.position, HitType.Bullet);
+                Body.linearVelocity -= Body.linearVelocity.normalized * penetrationSpeedLoss * Body.linearVelocity.magnitude * Time.fixedDeltaTime * hittable.ContinuousPenetration(transform.position, HitType.Bullet);
             }
         }
     }

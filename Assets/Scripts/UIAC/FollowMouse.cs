@@ -7,7 +7,7 @@ public class FollowMouse : MonoBehaviour
     Player Player;
     void Start()
     {  
-        Player = FindObjectOfType<Player>();
+        Player = FindFirstObjectByType<Player>();
     }
     void Update()
     {

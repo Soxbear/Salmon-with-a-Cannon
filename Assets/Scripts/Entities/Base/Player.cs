@@ -222,7 +222,7 @@ public abstract class Player : MonoBehaviour, Hittable, IntertalReferenceUser, U
     {     
         body = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        enemyManager = FindObjectOfType<EnemyManager>();
+        enemyManager = FindFirstObjectByType<EnemyManager>();
         controls = new InputMaster(); 
         playerBody = transform.GetChild(1).transform;
         
@@ -280,13 +280,13 @@ public abstract class Player : MonoBehaviour, Hittable, IntertalReferenceUser, U
         if (!useDefaultMovement)
             goto EndDefaultMovement;
 
-        if (!((maxSpeed) < ((body.velocity - this.GetTotalInertialReference()) + (moveVector * (acceleration) * Time.fixedDeltaTime)).magnitude))
+        if (!((maxSpeed) < ((body.linearVelocity - this.GetTotalInertialReference()) + (moveVector * (acceleration) * Time.fixedDeltaTime)).magnitude))
             body.AddForce((moveVector * (acceleration)));
         
         if (moveVector == Vector2.zero)
-            body.drag = idleDrag;
+            body.linearDamping = idleDrag;
         else
-            body.drag = 1;
+            body.linearDamping = 1;
 
         EndDefaultMovement:;
     }

@@ -24,7 +24,8 @@ namespace Upgrades {
     }
 
     public enum UpgradeStation {
-        BIOTECH
+        BIOTECH,
+        MECHANICAL
     }
 }
 

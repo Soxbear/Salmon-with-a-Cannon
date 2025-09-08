@@ -9,9 +9,9 @@ public class UpgradeStation : MonoBehaviour, Interactable
 
     public void Interact() {
         if (upgrades == null)
-            upgrades = FindObjectOfType<Player>().GetUpgrades(Upgrades.UpgradeStation.BIOTECH).NotMax(FindObjectOfType<Player>()).RandomCount(3);
+            upgrades = FindFirstObjectByType<Player>().GetUpgrades(Upgrades.UpgradeStation.BIOTECH).NotMax(FindFirstObjectByType<Player>()).RandomCount(3);
 
-        BiotechUpgradeManager.singleton.SetUpgrades(FindObjectOfType<Player>(), upgrades);
+        BiotechUpgradeManager.singleton.SetUpgrades(FindFirstObjectByType<Player>(), upgrades);
 
         MenuController.OpenMenu(MenuController.MenuType.BIOTECH);
     }

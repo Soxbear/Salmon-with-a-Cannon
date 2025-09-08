@@ -72,7 +72,7 @@ public class Menu : MonoBehaviour
     void Start()
     {
         Group = GetComponent<CanvasGroup>();
-        Controller = FindObjectOfType<UIController>();
+        Controller = FindFirstObjectByType<UIController>();
         if (CustomControlMethod)
             Controls = new InputMaster();
     }

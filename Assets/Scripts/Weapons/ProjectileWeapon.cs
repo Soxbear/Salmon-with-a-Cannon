@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Upgrades;
 
 public class ProjectileWeapon : Weapon
 {
@@ -10,6 +11,7 @@ public class ProjectileWeapon : Weapon
     public bool Automatic;
 
     public Transform ShootPoint;
+    public float WallIntersectCastLength;
 
     public override void OnPrimary()
     {
@@ -32,6 +34,7 @@ public class ProjectileWeapon : Weapon
             return;
 
         if (Primary && !PrimaryReloading) {
+            //Transform point = Physics2D.Raycast(ShootPoint.position, ShootPoint.right, WallIntersectCastLength, )
             if (ShootPoint.rotation.eulerAngles.y == 180f) {
                 Instantiate(Projectile, ShootPoint.position, Quaternion.Euler(0f, 0f, -ShootPoint.eulerAngles.z + 180f));            
             }
@@ -42,5 +45,11 @@ public class ProjectileWeapon : Weapon
 
             ReloadPrimary(1/ShotsPerSecond);
         }
+    }
+
+    [UpgradeHandler("Boom", Upgrades.UpgradeStation.MECHANICAL)]
+    public void Yay(int level)
+    {
+
     }
 }

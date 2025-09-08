@@ -57,7 +57,7 @@ public class LightObject : MonoBehaviour, Hittable
     }
 
     void Start() {
-        lightIntensity = new float[lights.Length - 1];
+        lightIntensity = new float[lights.Length];
 
         setState.onUpdate += OnSetStateUpdate;
         toggleState.onUpdate += OnToggleStateUpdate;

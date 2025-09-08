@@ -87,6 +87,11 @@ public abstract class Enemy : MonoBehaviour, Hittable, IntertalReferenceUser
         navErrorReached = false;
     }
 
+    protected void CancelNavigation()
+    {
+        navErrorReached = true;
+    }
+
     public OnEnemyDeath OnDeath;
 
     protected Vector2 moveVector;
@@ -130,8 +135,8 @@ public abstract class Enemy : MonoBehaviour, Hittable, IntertalReferenceUser
     void FixedUpdateInternal() {
         moveVector = targetPos - (Vector2) transform.position;
 
-        if (!(speed < ((body.velocity - this.GetTotalInertialReference()) + (moveVector.normalized * acceleration * Time.fixedDeltaTime)).magnitude) && !navErrorReached) {
-            body.AddForce(Vector2.Lerp(moveVector.normalized, moveVector.normalized - (body.velocity.normalized - moveVector.normalized), velocityCorrection).normalized * acceleration);
+        if (!(speed < ((body.linearVelocity - this.GetTotalInertialReference()) + (moveVector.normalized * acceleration * Time.fixedDeltaTime)).magnitude) && !navErrorReached) {
+            body.AddForce(Vector2.Lerp(moveVector.normalized, moveVector.normalized - (body.linearVelocity.normalized - moveVector.normalized), velocityCorrection).normalized * acceleration);
         }
 
         bool detect = DetectFull(false);
@@ -203,7 +208,7 @@ public abstract class Enemy : MonoBehaviour, Hittable, IntertalReferenceUser
 
         animator = GetComponent<Animator>();
         body = GetComponent<Rigidbody2D>();
-        enemyManager = FindObjectOfType<EnemyManager>();
+        enemyManager = FindFirstObjectByType<EnemyManager>();
         StartCoroutine(UpdateInternalLoop());
         StartCoroutine(FixedUpdateInternalLoop());
 
