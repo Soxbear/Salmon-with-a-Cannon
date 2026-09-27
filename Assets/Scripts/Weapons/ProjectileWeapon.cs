@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Upgrades;
 
 public class ProjectileWeapon : Weapon
 {
@@ -45,11 +44,5 @@ public class ProjectileWeapon : Weapon
 
             ReloadPrimary(1/ShotsPerSecond);
         }
-    }
-
-    [UpgradeHandler("Boom", Upgrades.UpgradeStation.MECHANICAL)]
-    public void Yay(int level)
-    {
-
     }
 }

@@ -1,0 +1,5 @@
+﻿<Solution>
+  <Project Path="UpgradesAssembly.csproj" />
+  <Project Path="Assembly-CSharp.csproj" />
+  <Project Path="StatesAssembly.csproj" />
+</Solution>

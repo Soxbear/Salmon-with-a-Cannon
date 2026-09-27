@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MarchingSquares
 {
-    public static Mesh GenerateMeshMinMinMinMin(float[,] voxels) {
+    public static Mesh GenerateMesh(float[,] voxels) {
         List<Vector3> v = new List<Vector3>();
         List<int> t = new List<int>();
 

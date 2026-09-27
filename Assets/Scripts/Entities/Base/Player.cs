@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using Upgrades;
 
-public abstract class Player : MonoBehaviour, Hittable, IntertalReferenceUser, Upgradable
+public abstract class Player : MonoBehaviour, Hittable, IntertalReferenceUser
 {
     [Header("Health")]
 
@@ -78,8 +77,6 @@ public abstract class Player : MonoBehaviour, Hittable, IntertalReferenceUser, U
     protected bool useDefaultRotation = true;
 
     public bool animationControl = true;
-    
-    private bool flip;
 
     public float maxRotationChange;
 
@@ -134,53 +131,6 @@ public abstract class Player : MonoBehaviour, Hittable, IntertalReferenceUser, U
 
 
 
-    public Dictionary<string, int> upgradeLevels {
-        get {
-            return lvls;
-        }
-        set {
-            lvls = value;
-        }
-    }
-
-    public Upgrade[] upgradeList {
-        get {
-            return upgs;
-        }
-        set {
-            upgs = value;
-        }
-    }
-
-    Upgrade[] upgs;
-
-    Dictionary<string, int> lvls = new Dictionary<string, int>();
-
-    private static int dna;
-    private static int tech;
-
-    public static int dnaCount {
-        get {
-            return dna;
-        }
-        set {
-            dna = value;
-            UIManager.resourceUI.dna = value;
-        }
-    }
-
-    public static int techCount {
-        get {
-            return tech;
-        }
-        set {
-            tech = value;
-            UIManager.resourceUI.tech = value;
-        }
-    }
-
-
-
     [HideInInspector]
     public Rigidbody2D body;
 
@@ -228,8 +178,6 @@ public abstract class Player : MonoBehaviour, Hittable, IntertalReferenceUser, U
         
         UIManager.healthUI.maxHealth = _maxHealth;
         UIManager.healthUI.health = health;
-        UIManager.resourceUI.dna = dna;
-        UIManager.resourceUI.tech = tech;
 
         controls.Enable();
         controls.Player.Movement.performed += ctx => { 
@@ -263,8 +211,6 @@ public abstract class Player : MonoBehaviour, Hittable, IntertalReferenceUser, U
         };
 
         enemyManager.OnEnemyDeath.AddListener((Info) => {
-            dnaCount += Info.Dna;
-            techCount += Info.Tech;
         });
 
         inertialReferences = new List<Vector2>();
@@ -316,11 +262,9 @@ public abstract class Player : MonoBehaviour, Hittable, IntertalReferenceUser, U
 
             if (Mathf.Cos(trueAngle * Mathf.Deg2Rad) < -0.01f) {
                 playerBody.GetComponent<SpriteRenderer>().flipY = true;
-                flip = true;
             }
             else if (Mathf.Cos(trueAngle * Mathf.Deg2Rad) > 0.01f) {
                 playerBody.GetComponent<SpriteRenderer>().flipY = false;
-                flip = false;
             }
 
             lastTrueAngle = trueAngle;

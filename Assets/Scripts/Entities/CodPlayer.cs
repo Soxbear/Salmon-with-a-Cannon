@@ -2,9 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Upgrades;
 
-[UpgradeDirectory("Player/Cod")]
 public class CodPlayer : Player, WeaponUser
 {
     [Header("Stats")]
@@ -84,23 +82,6 @@ public class CodPlayer : Player, WeaponUser
         OnDeath += () => {
             SceneManager.LoadScene("ded");
         };
-    }
-
-    [UpgradeHandler("Regen", Upgrades.UpgradeStation.BIOTECH)]
-    public void RegenUpgrade(int level) {
-        switch (level) {
-            case 0:
-                regen = 3;
-                break;
-
-            case 1:
-                regen = 5;
-                break;
-
-            case 2:
-                regen = 10;
-                break;
-        }
     }
 }
 
